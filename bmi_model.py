@@ -40,3 +40,8 @@ class Bmi_Model(Bmi):
         self.model = Model(1, 1, layers)
         self.learning_rate = 0.005 #TODO read from config, accept as "bmi parameter"
         self.optimzer = torch.optim.SGD(self.model.parameters(), self.learning_rate)
+
+    def update(self):
+        """__sammary
+        """
+        self.output = self.model(self.input)
