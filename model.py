@@ -2,7 +2,7 @@
 Torch model for a multi-layer Neural Network with weights and bias
 
 @author Nels Frazier (nfrazier@lynker.com)
-@version 0.1
+@version 0.1.1
 
 @date 2024-03-11
 
@@ -44,14 +44,14 @@ class Model(torch.nn.Module):
             # Create each layer weights and bias and initialize the parameter data
             # from a uniform distribtion
             self.weights.append( Parameter(torch.randn(current_in, layer_size)) )
-            self.bias.append( Parameter(torch.randn(current_in, layer_size)) )
+            self.bias.append( Parameter(torch.randn(layer_size)) )
             current_in = layer_size
             #set initial parameter data for this layer
             self.weights[-1].data.uniform_(-self.std_deviation, self.std_deviation)
             self.bias[-1].data.uniform_(-self.std_deviation, self.std_deviation)
         # Create final layer (or only layer)
         self.weights.append( Parameter(torch.randn(current_in, output_size)) )
-        self.bias.append( Parameter(torch.randn(current_in, output_size)) )
+        self.bias.append( Parameter(torch.randn(output_size)) )
         #set initial parameter data for the final layer
         self.weights[-1].data.uniform_(-self.std_deviation, self.std_deviation)
         self.bias[-1].data.uniform_(-self.std_deviation, self.std_deviation)
