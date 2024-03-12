@@ -29,3 +29,14 @@ class Bmi_Model(Bmi):
             self._values[name] = self.input
         for name in self.output_names:
             self._values[name] = self.output
+
+    def initialize(self, config: str):
+        """_summary_
+
+        Args:
+            config (str): _description_
+        """
+        layers = [10, 10] #TODO read from config, accept as "bmi parameter"
+        self.model = Model(1, 1, layers)
+        self.learning_rate = 0.005 #TODO read from config, accept as "bmi parameter"
+        self.optimzer = torch.optim.SGD(self.model.parameters(), self.learning_rate)
