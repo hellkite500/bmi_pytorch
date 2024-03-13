@@ -13,15 +13,17 @@ import torch
 from torch.nn import Parameter
 from math import sqrt
 #Typing imports
-from typing import Iterable, List, Callable
+from typing import Callable, List, Optional
 from torch import Tensor   
+
+from config import Config
 
 class Model(torch.nn.Module):
     """Multi-layer Neural Network Model
 
     """
 
-    def __init__(self, input_size: int, output_size: int, hidden_sizes: Iterable[int]=[], activation: Callable = None, dropout_rate: float = 0.0):
+    def __init__(self, config: Config, activation: Optional[Callable] = None, dropout_rate: Optional[float] = 0.0):
         """Initialize the model weights and bias for each required layer
 
         Args:
@@ -32,10 +34,14 @@ class Model(torch.nn.Module):
             dropout_rate (float, optional): Dropout rate. Defaults to 0.0.
         """
         super(Model, self).__init__()
-        self.output_size: int = output_size
+        input_size: int = config.input_size
+        output_size: int = config.output_size
+        hidden_sizes: List[None|int] = config.hidden_size
+        
         # Start with empty Parameter layers
         self.weights: List[Parameter] = []
         self.bias: List[Parameter] = []
+        
         # Compute the distribution to initialize from based on input size
         self.std_deviation: float = 1.0 / sqrt(input_size)
 
