@@ -85,3 +85,4 @@ class Model(torch.nn.Module):
             result = self.activation(result)
         result = torch.dropout( result, self.dropout_rate, self.training )
         return result
+    

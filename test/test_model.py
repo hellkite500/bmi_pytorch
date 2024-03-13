@@ -60,3 +60,4 @@ def test_data_load(data_dims: Tuple[int, int]):
     assert isinstance(precip_mean, np.ndarray), "Precip mean is not a numpy array"
     assert runoff_mean.shape == data_dims, "Runoff mean shape is incorrect"
     assert precip_mean.shape == data_dims, "Precip mean shape is incorrect"
+    
