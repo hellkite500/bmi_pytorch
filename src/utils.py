@@ -23,6 +23,7 @@ def load_data() -> Tuple[np.ndarray, np.ndarray]:
     # attributes_pd = pd.read_csv(data_dir / 'attributes.csv')
 
     # Calculating the mean for each basin across years.
+    # Removing the first column which is year column `.values[1:]`
     runoff_mean = runoff_pd.mean().values[1:]
     precip_mean = precip_pd.mean().values[1:]
     # attributes_mean = attributes_pd["pet_mean"].to_numpy()[1:]
