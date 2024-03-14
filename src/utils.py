@@ -1,4 +1,4 @@
-import logging 
+import logging
 from pathlib import Path
 from typing import Tuple
 
@@ -9,17 +9,19 @@ from config import Config
 
 log = logging.getLogger(__name__)
 
+
 def normalize(x: np.ndarray) -> np.ndarray:
 
     return (x - np.mean(x)) / np.std(x)
 
+
 def load_data() -> Tuple[np.ndarray, np.ndarray]:
-    
-    data_dir = Path(__file__).parent.parent / 'data/CAMELS'
-    
+
+    data_dir = Path(__file__).parent.parent / "data/CAMELS"
+
     # TODO add the input and output vars to config file
-    runoff_pd = pd.read_csv(data_dir / 'runoff_mm.csv')
-    precip_pd = pd.read_csv(data_dir / 'precipitation_mm.csv')
+    runoff_pd = pd.read_csv(data_dir / "runoff_mm.csv")
+    precip_pd = pd.read_csv(data_dir / "precipitation_mm.csv")
     # attributes_pd = pd.read_csv(data_dir / 'attributes.csv')
 
     # Calculating the mean for each basin across years.
@@ -32,5 +34,5 @@ def load_data() -> Tuple[np.ndarray, np.ndarray]:
     runoff_mean = np.expand_dims(runoff_mean, 1)
     precip_mean = np.expand_dims(precip_mean, 1)
     # attributes_mean = np.expand_dims(attributes_mean, 1)
-    
+
     return runoff_mean, precip_mean

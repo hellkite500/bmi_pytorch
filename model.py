@@ -12,18 +12,23 @@ Torch model for a multi-layer Neural Network with weights and bias
 import torch
 from torch.nn import Parameter
 from math import sqrt
-#Typing imports
+
+# Typing imports
 from typing import Callable, List, Optional
-from torch import Tensor   
+from torch import Tensor
 
 from config import Config
 
+
 class Model(torch.nn.Module):
-    """Multi-layer Neural Network Model
+    """Multi-layer Neural Network Model"""
 
-    """
-
-    def __init__(self, config: Config, activation: Optional[Callable] = None, dropout_rate: Optional[float] = 0.0):
+    def __init__(
+        self,
+        config: Config,
+        activation: Optional[Callable] = None,
+        dropout_rate: Optional[float] = 0.0,
+    ):
         """Initialize the model weights and bias for each required layer
 
         Args:
@@ -36,12 +41,12 @@ class Model(torch.nn.Module):
         super(Model, self).__init__()
         input_size: int = config.input_size
         output_size: int = config.output_size
-        hidden_sizes: List[None|int] = config.hidden_size
-        
+        hidden_sizes: List[None | int] = config.hidden_size
+
         # Start with empty Parameter layers
         self.weights: List[Parameter] = []
         self.bias: List[Parameter] = []
-        
+
         # Compute the distribution to initialize from based on input size
         self.std_deviation: float = 1.0 / sqrt(input_size)
 
@@ -49,24 +54,23 @@ class Model(torch.nn.Module):
         for layer_size in hidden_sizes[1:]:
             # Create each layer weights and bias and initialize the parameter data
             # from a uniform distribtion
-            self.weights.append( Parameter(torch.randn(current_in, layer_size)) )
-            self.bias.append( Parameter(torch.randn(layer_size)) )
+            self.weights.append(Parameter(torch.randn(current_in, layer_size)))
+            self.bias.append(Parameter(torch.randn(layer_size)))
             current_in = layer_size
-            #set initial parameter data for this layer
+            # set initial parameter data for this layer
             self.weights[-1].data.uniform_(-self.std_deviation, self.std_deviation)
             self.bias[-1].data.uniform_(-self.std_deviation, self.std_deviation)
         # Create final layer (or only layer)
-        self.weights.append( Parameter(torch.randn(current_in, output_size)) )
-        self.bias.append( Parameter(torch.randn(output_size)) )
-        #set initial parameter data for the final layer
+        self.weights.append(Parameter(torch.randn(current_in, output_size)))
+        self.bias.append(Parameter(torch.randn(output_size)))
+        # set initial parameter data for the final layer
         self.weights[-1].data.uniform_(-self.std_deviation, self.std_deviation)
         self.bias[-1].data.uniform_(-self.std_deviation, self.std_deviation)
-        
+
         # Hold activation function and dropout rate for use in forward pass
         self.activation: Callable = activation
         self.dropout_rate: float = dropout_rate
-        
-    
+
     def forward(self, input: Tensor) -> Tensor:
         """Forward pass of the network layers
 
@@ -79,10 +83,9 @@ class Model(torch.nn.Module):
         result: Tensor = input
         # Iterate each layer's weight and bias
         for weight, bias in zip(self.weights, self.bias):
-            result = torch.matmul(result, weight)+bias
+            result = torch.matmul(result, weight) + bias
         # Apply activation, if requested
         if self.activation:
             result = self.activation(result)
-        result = torch.dropout( result, self.dropout_rate, self.training )
+        result = torch.dropout(result, self.dropout_rate, self.training)
         return result
-    
