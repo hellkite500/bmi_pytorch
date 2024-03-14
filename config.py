@@ -1,9 +1,7 @@
 import logging
-
 from typing import List
 
 from pydantic import BaseModel, Field
-
 
 log = logging.getLogger(__name__)
 
