@@ -1,5 +1,5 @@
-from bmipy import Bmi
 import torch
+from bmipy import Bmi
 from torch import Tensor
 
 from bmi_grid import Grid, GridType

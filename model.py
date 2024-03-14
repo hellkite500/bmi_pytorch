@@ -9,13 +9,13 @@ Torch model for a multi-layer Neural Network with weights and bias
 @copyright Copyright (c) 2024
 """
 
-import torch
-from torch.nn import Parameter
 from math import sqrt
-
 # Typing imports
 from typing import Callable, List, Optional
+
+import torch
 from torch import Tensor
+from torch.nn import Parameter
 
 from config import Config
 
