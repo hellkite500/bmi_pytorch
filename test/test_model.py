@@ -15,10 +15,11 @@ def test_single_layer(config: Config, input: torch.Tensor):
     Args:
         input (Tensor): an Nx1 set of inputs
     """
-    #Construct the model, 1 input, 1 output\
+    # Construct the model, 1 input, 1 output\
     model = Model(config)
-    #Pass input through the model
+    # Pass input through the model
     tmp = model(input)
+
 
 def test_two_layer(config: Config, input, compare):
     """_summary_
@@ -27,11 +28,12 @@ def test_two_layer(config: Config, input, compare):
         input (_type_): _description_
         compare (_type_): _description_
     """
-    #Construct the model
+    # Construct the model
     config.hidden_size = [10]
     model = Model(config)
-    #Pass input through the model
+    # Pass input through the model
     tmp = model(input)
+
 
 def test_three_layer(config: Config, input, compare):
     """_summary_
@@ -40,24 +42,23 @@ def test_three_layer(config: Config, input, compare):
         input (_type_): _description_
         compare (_type_): _description_
     """
-    #Construct the model
+    # Construct the model
     config.hidden_size = [10, 15]
     model = Model(config)
-    #Pass input through the model
+    # Pass input through the model
     tmp = model(input)
-    
-    
+
+
 def test_data_load(data_dims: Tuple[int, int]):
     """_summary_
 
     Args:
         data_dims (_type_): _description_
     """
-    #Load the data
+    # Load the data
     runoff_mean, precip_mean = load_data()
-    #Check the shapes and dtypes
+    # Check the shapes and dtypes
     assert isinstance(runoff_mean, np.ndarray), "Runoff mean is not a numpy array"
     assert isinstance(precip_mean, np.ndarray), "Precip mean is not a numpy array"
     assert runoff_mean.shape == data_dims, "Runoff mean shape is incorrect"
     assert precip_mean.shape == data_dims, "Precip mean shape is incorrect"
-    

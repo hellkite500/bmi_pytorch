@@ -6,6 +6,7 @@ from bmi_grid import Grid, GridType
 from config import Config
 from model import Model
 
+
 class Bmi_Model(Bmi):
     """BMI composition wrapper for Model
 
@@ -17,12 +18,12 @@ class Bmi_Model(Bmi):
         super(Bmi_Model, self).__init__()
         # Grid 0 is a 0 dimension "grid" for scalars
         self.grid_0: Grid = Grid(0, 0, GridType.scalar)
-        self.input_names = ['precipitation']
-        self.output_names = ['runoff']
+        self.input_names = ["precipitation"]
+        self.output_names = ["runoff"]
         # all inputs and outputs map to scalar grid
-        self.grid_map = { k:self.grid_0 for k in self.input_names+self.output_names }
+        self.grid_map = {k: self.grid_0 for k in self.input_names + self.output_names}
 
-        self.units = {k:'-' for k in self.input_names+self.output_names}
+        self.units = {k: "-" for k in self.input_names + self.output_names}
 
         self.input = Tensor()
         self.ouptut = Tensor()
@@ -38,17 +39,15 @@ class Bmi_Model(Bmi):
         Args:
             config (str): _description_
         """
-        _config = Config() # Hack to get the default values. We can change later
+        _config = Config()  # Hack to get the default values. We can change later
         self.model = Model(_config)
-        self.learning_rate = _config.learning_rate 
+        self.learning_rate = _config.learning_rate
         self.optimzer = torch.optim.SGD(self.model.parameters(), self.learning_rate)
 
     def update(self):
-        """__sammary
-        """
+        """__sammary"""
         self.output = self.model(self.input)
-        
+
     def finalize(self):
-        """_summary_
-        """
+        """_summary_"""
         pass
