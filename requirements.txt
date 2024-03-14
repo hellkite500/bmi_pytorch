@@ -7,3 +7,4 @@ bmipy~=2.0.1
 xarray~=2024.2.0
 ruff~=0.3.2
 pre-commit~=3.6.2
+isort~=5.13.2
