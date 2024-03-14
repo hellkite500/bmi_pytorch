@@ -1,9 +1,46 @@
 import pytest
 import torch
 import numpy as np
+from contextlib import contextmanager
+from os import PathLike, getcwd, chdir, system
+from pathlib import Path
 from config import Config
-from typing import Tuple
+from typing import Tuple, Union
 
+
+@contextmanager
+def pushd(path: Union[str, PathLike]) -> None:
+    """Change current working directory to the given path.
+
+    Parameters
+    ----------
+    path : New directory path 
+
+    Returns
+    ----------
+    None
+
+    """
+    # Save current working directory
+    cwd = getcwd()
+
+    # Change the directory
+    chdir(path)
+    try:
+        yield 
+    finally:
+        chdir(cwd)
+
+def pytest_sessionstart(session) -> None:
+    """attempt to download data before starting tests if it doesn't exist
+
+    Args:
+        session (_type_): _description_
+    """
+    path = Path(__file__).parent.parent / "data/CAMELS"
+    if not path.exists():
+        with pushd(Path(__file__).parent.parent):
+            system("scripts/download_camels.sh")
 
 @pytest.fixture
 def input():
