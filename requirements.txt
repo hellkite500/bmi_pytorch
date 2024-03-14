@@ -5,3 +5,5 @@ pytest~=8.1.1
 bmi~=1.0.0
 bmipy~=2.0.1
 xarray~=2024.2.0
+ruff~=0.3.2
+pre-commit~=3.6.2
