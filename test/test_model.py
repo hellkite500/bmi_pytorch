@@ -1,8 +1,8 @@
 from typing import Tuple
 
+import numpy as np
 import pytest
 import torch
-import numpy as np
 
 from config import Config
 from model import Model
