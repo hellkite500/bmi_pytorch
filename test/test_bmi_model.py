@@ -81,3 +81,17 @@ def test_bmi_output_var_names(model, request):
     names = m.get_output_var_names()
     assert len(names) == 1
     assert names[0] == "runoff"
+
+@pytest.mark.parametrize("var,expected", [
+                            ("precipitation", 0),
+                            ("runoff", 0)
+                        ])
+def test_bmi_var_grid(bmi_model_initialized, var, expected):
+    m = bmi_model_initialized
+    assert m.get_var_grid(var) == expected
+
+@pytest.mark.parametrize("var", ["var1", "var2"])
+def test_bmi_var_grid_2(bmi_model_initialized, var):
+    m = bmi_model_initialized
+    with pytest.raises(UnknownBMIVariable):
+            m.get_var_grid(var)
