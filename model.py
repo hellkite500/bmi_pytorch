@@ -15,7 +15,7 @@ from typing import Callable, List, Optional
 
 import torch
 from torch import Tensor
-from torch.nn import Parameter
+from torch.nn import Parameter, ParameterList
 
 from config import Config
 
@@ -44,8 +44,8 @@ class Model(torch.nn.Module):
         hidden_sizes: List[None | int] = config.hidden_size
 
         # Start with empty Parameter layers
-        self.weights: List[Parameter] = []
-        self.bias: List[Parameter] = []
+        self.weights: ParameterList = ParameterList()
+        self.bias: ParameterList = ParameterList()
 
         # Compute the distribution to initialize from based on input size
         self.std_deviation: float = 1.0 / sqrt(input_size)
