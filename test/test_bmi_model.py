@@ -29,7 +29,7 @@ def test_bmi_model_construct() -> None:
     assert model.input != None
     assert model.output != None
 
-def test_bmi_initialize(config: Config) -> None:
+def test_bmi_initialize(config: Config, bmi_model) -> None:
     """Test bmi initialization function from config
 
        Currently tests model attribute, learning_rate, and optimizer
@@ -41,16 +41,15 @@ def test_bmi_initialize(config: Config) -> None:
     Args:
         config (Config): configuration to initialize the model with
     """
-    model: Bmi_Model = Bmi_Model()
-    assert not hasattr(model, "model")
+    assert not hasattr(bmi_model, "model")
 
-    model.initialize(config)
+    bmi_model.initialize(config)
 
-    assert hasattr(model, "model")
-    assert model.model != None
+    assert hasattr(bmi_model, "model")
+    assert bmi_model.model != None
 
-    assert model.learning_rate == config.learning_rate
-    assert model.optimizer != None
+    assert bmi_model.learning_rate == config.learning_rate
+    assert bmi_model.optimizer != None
 
 def test_bmi_component_name():
     model: Bmi_Model = Bmi_Model()
