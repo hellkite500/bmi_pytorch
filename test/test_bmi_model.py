@@ -1,6 +1,8 @@
 from config import Config
 from bmi_grid import GridType
+from bmi_model import Bmi_Model, UnknownBMIVariable
 import pytest
+from torch import Tensor
 
 
 def test_bmi_model_construct() -> None:
@@ -95,3 +97,36 @@ def test_bmi_var_grid_2(bmi_model_initialized, var):
     m = bmi_model_initialized
     with pytest.raises(UnknownBMIVariable):
             m.get_var_grid(var)
+
+@pytest.mark.parametrize("input", [
+                          Tensor([0,0]),
+                          Tensor([0, 1, 2]),
+                          Tensor([2, 1, 0]),
+                          Tensor([ [0] ]),
+                          Tensor([ [0, 1] ]),
+                          Tensor([ [0, 1], [2, 3] ]),
+                          Tensor([ [3, 2], [1, 0] ])
+                        ])
+def test_bmi_get_var_ptr(bmi_model_initialized, input):
+    name = "precipitation"
+    m = bmi_model_initialized
+    m.input = input
+    m._values[name] = m.input
+    data = m.get_value_ptr(name)
+    # Can't test this since data is flattened...
+    #assert data.shape == m.input.shape
+    assert data.shape == m.input.flatten().shape
+    for expected, val in zip( m.input.flatten(), data.flatten() ):
+        assert expected == val
+
+def test_bmi_get_var_ptr_1(bmi_model_initialized, input):
+    name = "precipitation"
+    expected = (4, 5, 6)
+    m = bmi_model_initialized
+    m.input = Tensor([1,2,3])
+    m._values[name] = m.input
+    data = m.get_value_ptr(name)
+    data[:] = expected[:]
+    
+    for expected, val in zip( m.input.flatten(), expected ):
+        assert expected == val

@@ -1,3 +1,4 @@
+from numpy import ndarray
 import torch
 from bmipy import Bmi
 from src.bmi_minimal import Bmi_Minimal
@@ -99,6 +100,23 @@ class Bmi_Model(Bmi_Minimal):
             tuple[str]: iterable tuple of output variable names
         """
         return self.output_names
+
+    # BMI Variable Query
+    def get_value_ptr(self, name: str) -> ndarray:
+
+        # np_array will share memory with the Tensor's
+        # numeric array, but won't have any other attributes
+        # of the Tensor.
+        np_array = self._values[name].numpy()
+        shape = np_array.shape
+        try:
+            #see if raveling is possible without a copy
+            np_array.shape = (-1,)
+            #reset original shape
+            np_array.shape = shape
+        except ValueError as e:
+            raise RuntimeError("Cannot flatten array without copying -- "+str(e).split(": ")[-1])
+        return np_array.ravel()
 
     # BMI Variable Information Functions
     def get_var_grid(self, name: str) -> int:
