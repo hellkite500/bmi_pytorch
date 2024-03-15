@@ -56,3 +56,7 @@ def test_bmi_component_name(model, request):
     m = request.getfixturevalue(model)
     assert m.get_component_name() == "Tensor Test"
 
+@pytest.mark.parametrize('model', ['bmi_model', 'bmi_model_initialized'])
+def test_bmi_input_item_count(model, request):
+    m = request.getfixturevalue(model)
+    assert m.get_input_item_count() == 1
