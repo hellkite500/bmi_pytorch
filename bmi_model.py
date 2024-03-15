@@ -88,3 +88,11 @@ class Bmi_Model(Bmi_Minimal):
             int: number of output variables
         """
         return len(self.output_names)
+    
+    def get_output_var_names(self) -> tuple[str]:
+        """The names of each output variable
+
+        Returns:
+            tuple[str]: iterable tuple of output variable names
+        """
+        return self.output_names

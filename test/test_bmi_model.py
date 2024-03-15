@@ -73,3 +73,11 @@ def test_bmi_input_var_names(model, request):
 def test_bmi_output_item_count(model, request):
     m = request.getfixturevalue(model)
     assert m.get_output_item_count() == 1
+
+@pytest.mark.parametrize('model', ['bmi_model', 'bmi_model_initialized'])
+def test_bmi_output_var_names(model, request):
+    m = request.getfixturevalue(model)
+    assert m.get_output_item_count() == 1
+    names = m.get_output_var_names()
+    assert len(names) == 1
+    assert names[0] == "runoff"
