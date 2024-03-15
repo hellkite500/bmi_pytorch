@@ -1,3 +1,4 @@
+from bmi_model import Bmi_Model
 from contextlib import contextmanager
 from os import PathLike, chdir, getcwd, system
 from pathlib import Path
@@ -47,14 +48,14 @@ def pytest_sessionstart(session) -> None:
 
 
 @pytest.fixture
-def input():
+def input() -> torch.Tensor:
     np.random.seed(42)
     data = np.random.uniform(0, 10, 24).reshape(24, 1)
     return torch.Tensor(data)
 
 
 @pytest.fixture
-def config():
+def config() -> Config:
     return Config(
         input_size=1,
         output_size=1,
@@ -70,7 +71,7 @@ def data_dims() -> Tuple[int, int]:
 
 
 @pytest.fixture
-def compare():
+def compare() -> torch.Tensor:
     np.random.seed(4242)
     data = np.random.uniform(0, 10, 24).reshape(24, 1)
     return torch.Tensor(data)
@@ -80,6 +81,6 @@ def bmi_model() -> Bmi_Model:
     return Bmi_Model()
 
 @pytest.fixture
-def bmi_model_initialized(config, bmi_model):
+def bmi_model_initialized(config, bmi_model) -> Bmi_Model:
     bmi_model.initialize(config)
     return bmi_model
