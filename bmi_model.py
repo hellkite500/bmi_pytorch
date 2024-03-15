@@ -80,3 +80,11 @@ class Bmi_Model(Bmi_Minimal):
             tuple[str]: iterable tuple of input variable names
         """
         return self.input_names
+
+    def get_output_item_count(self) -> int:
+        """Number of model output variables
+
+        Returns:
+            int: number of output variables
+        """
+        return len(self.output_names)
