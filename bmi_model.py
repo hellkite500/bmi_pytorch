@@ -64,3 +64,11 @@ class Bmi_Model(Bmi_Minimal):
             str: Model Name
         """
         return "Tensor Test"
+
+    def get_input_item_count(self) -> int:
+        """Number of model input variables
+
+        Returns:
+            int: number of input variables
+        """
+        return len(self.input_names)
