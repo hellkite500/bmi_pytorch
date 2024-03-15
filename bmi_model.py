@@ -1,5 +1,6 @@
 import torch
 from bmipy import Bmi
+from src.bmi_minimal import Bmi_Minimal
 from torch import Tensor
 
 from bmi_grid import Grid, GridType
@@ -8,7 +9,7 @@ from model import Model
 
 from typing import Tuple, List
 
-class Bmi_Model(Bmi):
+class Bmi_Model(Bmi_Minimal):
     """BMI composition wrapper for Model
 
     Args:
@@ -51,14 +52,6 @@ class Bmi_Model(Bmi):
         """Update the model for the internal timestep duration
         """
         self.output = self.model(self.input)
-
-    def update_until(self, time: float) -> None:
-        """Update model from current_time until current_time + time
-
-        Args:
-            time (float): duration of time to advance model till
-        """
-        raise NotImplementedError()
 
     def finalize(self):
         """Clean up any internal resources of the model"""
