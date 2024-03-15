@@ -45,9 +45,18 @@ class Bmi_Model(Bmi):
         self.optimzer = torch.optim.SGD(self.model.parameters(), self.learning_rate)
 
     def update(self):
-        """__sammary"""
+        """Update the model for the internal timestep duration
+        """
         self.output = self.model(self.input)
 
+    def update_until(self, time: float) -> None:
+        """Update model from current_time until current_time + time
+
+        Args:
+            time (float): duration of time to advance model till
+        """
+        raise NotImplementedError()
+
     def finalize(self):
-        """_summary_"""
+        """Clean up any internal resources of the model"""
         pass
