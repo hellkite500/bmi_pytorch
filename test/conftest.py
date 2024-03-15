@@ -78,3 +78,8 @@ def compare():
 @pytest.fixture
 def bmi_model() -> Bmi_Model:
     return Bmi_Model()
+
+@pytest.fixture
+def bmi_model_initialized(config, bmi_model):
+    bmi_model.initialize(config)
+    return bmi_model
