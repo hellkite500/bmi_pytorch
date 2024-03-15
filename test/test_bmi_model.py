@@ -52,3 +52,6 @@ def test_bmi_initialize(config: Config) -> None:
     assert model.learning_rate == config.learning_rate
     assert model.optimizer != None
 
+def test_bmi_component_name():
+    model: Bmi_Model = Bmi_Model()
+    assert model.get_component_name() == "Tensor Test"

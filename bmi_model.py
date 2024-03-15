@@ -56,3 +56,11 @@ class Bmi_Model(Bmi_Minimal):
     def finalize(self):
         """Clean up any internal resources of the model"""
         pass
+
+    def get_component_name(self) -> str:
+        """Name of this BMI module component.
+
+        Returns:
+            str: Model Name
+        """
+        return "Tensor Test"
