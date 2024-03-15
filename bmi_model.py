@@ -72,3 +72,11 @@ class Bmi_Model(Bmi_Minimal):
             int: number of input variables
         """
         return len(self.input_names)
+    
+    def get_input_var_names(self) -> tuple[str]:
+        """The names of each input variables
+
+        Returns:
+            tuple[str]: iterable tuple of input variable names
+        """
+        return self.input_names
