@@ -9,6 +9,9 @@ from model import Model
 
 from typing import Tuple, List
 
+class UnknownBMIVariable(RuntimeError):
+    pass
+
 class Bmi_Model(Bmi_Minimal):
     """BMI composition wrapper for Model
 
@@ -96,3 +99,21 @@ class Bmi_Model(Bmi_Minimal):
             tuple[str]: iterable tuple of output variable names
         """
         return self.output_names
+
+    # BMI Variable Information Functions
+    def get_var_grid(self, name: str) -> int:
+        """Get the grid identiferier associated with a given variable
+
+        Args:
+            name (str): name of the variable
+
+        Raises:
+            UnknownBMIVariable: name is not recognized, grid unknown
+
+        Returns:
+            int: grid identifier associated with @p name
+        """
+        if name in (self.input_names + self.output_names):
+            return 0 # should these be on a grid???
+
+        raise(UnknownBMIVariable(f"No known variable in BMI model: {name}"))
