@@ -74,3 +74,7 @@ def compare():
     np.random.seed(4242)
     data = np.random.uniform(0, 10, 24).reshape(24, 1)
     return torch.Tensor(data)
+
+@pytest.fixture
+def bmi_model() -> Bmi_Model:
+    return Bmi_Model()
