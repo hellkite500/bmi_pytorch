@@ -1,6 +1,6 @@
 from config import Config
 from bmi_grid import GridType
-from bmi_model import Bmi_Model
+import pytest
 
 
 def test_bmi_model_construct() -> None:
@@ -51,6 +51,8 @@ def test_bmi_initialize(config: Config, bmi_model) -> None:
     assert bmi_model.learning_rate == config.learning_rate
     assert bmi_model.optimizer != None
 
-def test_bmi_component_name():
-    model: Bmi_Model = Bmi_Model()
-    assert model.get_component_name() == "Tensor Test"
+@pytest.mark.parametrize('model', ['bmi_model', 'bmi_model_initialized'])
+def test_bmi_component_name(model, request):
+    m = request.getfixturevalue(model)
+    assert m.get_component_name() == "Tensor Test"
+
