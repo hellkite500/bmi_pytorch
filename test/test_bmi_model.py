@@ -2,7 +2,7 @@ from config import Config
 from bmi_grid import GridType
 from bmi_model import Bmi_Model, UnknownBMIVariable
 import pytest
-from torch import Tensor
+from torch import Tensor, tensor, float16, float32, float64, int16, int32, int64, int8
 
 
 def test_bmi_model_construct() -> None:
@@ -166,3 +166,21 @@ def test_bmi_get_var_nybtes(bmi_model_initialized, input):
     data = m.get_var_nbytes(name)
 
     assert input.nbytes == data
+
+@pytest.mark.parametrize("input", [
+                          tensor([0, 0], dtype=int8),
+                          tensor([0, 1.0, 2], dtype=int16),
+                          tensor([2, 1, 0], dtype=int32),
+                          tensor([ [0] ], dtype=int64),
+                          tensor([ [0, 1.0] ], dtype=float16),
+                          tensor([ [0, 1.0], [2, 3.0] ], dtype=float32),
+                          tensor([ [3, 2], [1.0, 0] ], dtype=float64)
+                        ])
+def test_bmi_get_var_type(bmi_model_initialized, input):
+    name = "precipitation"
+    m = bmi_model_initialized
+    m.input = input
+    m._values[name] = m.input
+    data = m.get_var_type(name)
+
+    assert str(input.dtype).split(".")[1] == data
