@@ -148,3 +148,21 @@ def test_bmi_get_var_itemsize(bmi_model_initialized, input):
     data = m.get_var_itemsize(name)
 
     assert input.itemsize == data
+
+@pytest.mark.parametrize("input", [
+                          Tensor([0.0, 0]),
+                          Tensor([0, 1.0, 2]),
+                          Tensor([2, 1, 0]),
+                          Tensor([ [0] ]),
+                          Tensor([ [0, 1.0] ]),
+                          Tensor([ [0, 1.0], [2, 3.0] ]),
+                          Tensor([ [3, 2], [1.0, 0] ])
+                        ])
+def test_bmi_get_var_nybtes(bmi_model_initialized, input):
+    name = "precipitation"
+    m = bmi_model_initialized
+    m.input = input
+    m._values[name] = m.input
+    data = m.get_var_nbytes(name)
+
+    assert input.nbytes == data
