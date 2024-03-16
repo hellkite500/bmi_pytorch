@@ -135,3 +135,14 @@ class Bmi_Model(Bmi_Minimal):
             return 0 # should these be on a grid???
 
         raise(UnknownBMIVariable(f"No known variable in BMI model: {name}"))
+
+    def get_var_itemsize(self, name: str) -> int:
+        """Size, in bytes, of a single element of the variable name
+
+        Args:
+            name (str): variable name
+
+        Returns:
+            int: number of bytes representing a single variable of @p name
+        """
+        return self.get_value_ptr(name).itemsize
