@@ -146,3 +146,14 @@ class Bmi_Model(Bmi_Minimal):
             int: number of bytes representing a single variable of @p name
         """
         return self.get_value_ptr(name).itemsize
+
+    def get_var_nbytes(self, name: str) -> int:
+        """_summary_
+
+        Args:
+            name (str): Name of variable.
+
+        Returns:
+            int: Size of data array in bytes.
+        """
+        return self.get_value_ptr(name).nbytes
