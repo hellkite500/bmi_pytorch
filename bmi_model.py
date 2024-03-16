@@ -157,3 +157,14 @@ class Bmi_Model(Bmi_Minimal):
             int: Size of data array in bytes.
         """
         return self.get_value_ptr(name).nbytes
+
+    def get_var_type(self, name: str) -> str:
+        """Data type of variable.
+
+        Args:
+            name (str): Name of variable.
+
+        Returns:
+            str: Data type.
+        """
+        return str(self.get_value_ptr(name).dtype)
