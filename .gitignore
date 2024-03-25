@@ -7,3 +7,6 @@ Pipfile.lock
 
 # datasets
 data/
+
+# vscode config
+.vscode/
