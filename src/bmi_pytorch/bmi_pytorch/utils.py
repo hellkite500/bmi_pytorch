@@ -1,4 +1,5 @@
 import logging
+from os import PathLike
 from pathlib import Path
 from typing import Tuple
 
@@ -12,9 +13,8 @@ def normalize(x: np.ndarray) -> np.ndarray:
     return (x - np.mean(x)) / np.std(x)
 
 
-def load_data() -> Tuple[np.ndarray, np.ndarray]:
-    data_dir = Path(__file__).parent.parent / "data/CAMELS"
-
+def load_data(data_dir: PathLike) -> Tuple[np.ndarray, np.ndarray]:
+    data_dir = Path(data_dir)
     # TODO add the input and output vars to config file
     # Read the CSV files and drop the "Year" column
     runoff_pd = pd.read_csv(data_dir / "runoff_mm.csv").drop(columns=["Year"])

@@ -1,6 +1,6 @@
-from config import Config
-from bmi_grid import GridType
-from bmi_model import Bmi_Model, UnknownBMIVariable
+from ..config import Config
+from bmi_sdk.bmi_grid import GridType
+from ..bmi_model import Bmi_Model, UnknownBMIVariable
 import pytest
 from torch import Tensor, tensor, float16, float32, float64, int16, int32, int64, int8
 

@@ -1,12 +1,13 @@
 from typing import Tuple
 
 import numpy as np
+from pathlib import Path
 import pytest
 import torch
 
-from config import Config
-from model import Model
-from src.utils import load_data
+from ..config import Config
+from ..model import Model
+from ..utils import load_data
 
 
 def test_single_layer(config: Config, input: torch.Tensor):
@@ -56,7 +57,7 @@ def test_data_load(data_dims: Tuple[int, int]):
         data_dims (_type_): _description_
     """
     # Load the data
-    runoff_mean, precip_mean = load_data()
+    runoff_mean, precip_mean = load_data(Path(__file__).parent/"data/CAMELS")
     # Check the shapes and dtypes
     assert isinstance(runoff_mean, np.ndarray), "Runoff mean is not a numpy array"
     assert isinstance(precip_mean, np.ndarray), "Precip mean is not a numpy array"
