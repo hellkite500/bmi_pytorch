@@ -1,4 +1,4 @@
-from bmi_model import Bmi_Model
+from ..bmi_model import Bmi_Model
 from contextlib import contextmanager
 from os import PathLike, chdir, getcwd, system
 from pathlib import Path
@@ -8,7 +8,7 @@ import numpy as np
 import pytest
 import torch
 
-from config import Config
+from ..config import Config
 
 
 @contextmanager
@@ -41,10 +41,17 @@ def pytest_sessionstart(session) -> None:
     Args:
         session (_type_): _description_
     """
-    path = Path(__file__).parent.parent / "data/CAMELS"
-    if not path.exists():
-        with pushd(Path(__file__).parent.parent):
-            system("scripts/download_camels.sh")
+    data_path = Path(__file__).parent/"data"
+    print(data_path)
+    camels = data_path / "CAMELS"
+    if not camels.exists():
+        Path.mkdir(data_path, exist_ok=True)
+        with pushd(data_path):
+            url = 'https://drive.google.com/uc?export=download&id=1ZeX-M2fA-HKNg1nWwDDsI66O6seUwpz4'
+            dest = 'CAMELS.zip'
+            #TODO replace with requestlib?
+            system(f"wget --no-check-certificate '{url}' -O '{dest}'")
+            system("unzip 'CAMELS.zip' && rm CAMELS.zip")
 
 
 @pytest.fixture
