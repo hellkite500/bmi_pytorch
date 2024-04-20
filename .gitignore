@@ -10,3 +10,7 @@ data/
 
 # vscode config
 .vscode/
+
+# packaging artifacts
+*egg-info*
+build/
