@@ -10,6 +10,13 @@ import torch
 from ..bmi_model import Bmi_Model
 from ..config import Config
 
+from contextlib import contextmanager
+from os import PathLike, chdir, getcwd, system
+from pathlib import Path
+from typing import Union
+
+import pytest
+
 
 @contextmanager
 def pushd(path: Union[str, PathLike]) -> None:
@@ -35,26 +42,26 @@ def pushd(path: Union[str, PathLike]) -> None:
         chdir(cwd)
 
 
-def pytest_sessionstart(session) -> None:
+def pytest_configure(config) -> None:
     """attempt to download data before starting tests if it doesn't exist
 
     Args:
-        session (_type_): _description_
+        cofnig (_type_): _description_
     """
     data_path = Path(__file__).parent / "data"
-    print(data_path)
     camels = data_path / "CAMELS"
     if not camels.exists():
         Path.mkdir(data_path, exist_ok=True)
         with pushd(data_path):
+            print(f"Downloading CAMELS test data to {data_path}")
             url = "https://drive.google.com/uc?export=download&id=1ZeX-M2fA-HKNg1nWwDDsI66O6seUwpz4"
             dest = "CAMELS.zip"
             # TODO replace with requestlib?
             system(f"wget --no-check-certificate '{url}' -O '{dest}'")
             system("unzip 'CAMELS.zip' && rm CAMELS.zip")
+
     else:
         print(f"CAMELS data already exists in {data_path}")
-
 
 @pytest.fixture
 def input() -> torch.Tensor:
