@@ -1,12 +1,13 @@
+import numpy as np
 from numpy import ndarray
 import torch
 from bmipy import Bmi
-from src.bmi_minimal import Bmi_Minimal
+from bmi_sdk.bmi_minimal import Bmi_Minimal
 from torch import Tensor
 
-from bmi_grid import Grid, GridType
-from config import Config
-from model import Model
+from bmi_sdk.bmi_grid import Grid, GridType
+from .config import Config
+from .model import Model
 
 from typing import Tuple, List
 
