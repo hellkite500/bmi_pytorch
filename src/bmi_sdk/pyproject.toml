@@ -3,16 +3,15 @@ requires = ["setuptools >= 61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "bmi_pytorch"
+name = "bmi_sdk"
 version = "0.0.0"
 dependencies = [
-  "torch",
   "bmipy",
-  "pydantic"
+  "numpy"
 ]
 
 [tool.setuptools]
-package-dir={"bmi_pytorch"="bmi_pytorch"}
+package-dir={"bmi_sdk"="bmi_sdk"}
 
 [tool.ruff]
 exclude = [
