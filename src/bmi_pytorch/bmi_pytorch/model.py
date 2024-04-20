@@ -17,7 +17,7 @@ import torch
 from torch import Tensor
 from torch.nn import Parameter, ParameterList
 
-from config import Config
+from .config import Config
 
 
 class Model(torch.nn.Module):
