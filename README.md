@@ -2,6 +2,9 @@
 
 # Testing BMI with torch tensors
 
+## Instructions to build `bmi_sdk`
+1.  `pip install src/bmi_sdk`
+
 ## model.py
 Contains an intitial multi-layer torch neural network for testing.
 
