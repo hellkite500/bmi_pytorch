@@ -1,64 +1,36 @@
-from contextlib import contextmanager
-from os import PathLike, chdir, getcwd, system
+import os
+import urllib.request
+import zipfile
 from pathlib import Path
-from typing import Tuple, Union
+from typing import Tuple
 
 import numpy as np
 import pytest
 import torch
+from bmi_pytorch.bmi_model import Bmi_Model
+from bmi_pytorch.config import Config
 
-from ..bmi_model import Bmi_Model
-from ..config import Config
+class TestDataDownloadError(Exception):
+    ...
 
-from contextlib import contextmanager
-from os import PathLike, chdir, getcwd, system
-from pathlib import Path
-from typing import Union
+def pytest_configure(config: pytest.Config) -> None:
+    """Download CAMELS data if it doesn't already exist"""
 
-import pytest
-
-
-@contextmanager
-def pushd(path: Union[str, PathLike]) -> None:
-    """Change current working directory to the given path.
-
-    Parameters
-    ----------
-    path : New directory path
-
-    Returns
-    ----------
-    None
-
-    """
-    # Save current working directory
-    cwd = getcwd()
-
-    # Change the directory
-    chdir(path)
-    try:
-        yield
-    finally:
-        chdir(cwd)
-
-
-def pytest_configure(config) -> None:
-    """attempt to download data before starting tests if it doesn't exist
-
-    Args:
-        cofnig (_type_): _description_
-    """
     data_path = Path(__file__).parent / "data"
     camels = data_path / "CAMELS"
     if not camels.exists():
         Path.mkdir(data_path, exist_ok=True)
-        with pushd(data_path):
-            print(f"Downloading CAMELS test data to {data_path}")
-            url = "https://drive.google.com/uc?export=download&id=1ZeX-M2fA-HKNg1nWwDDsI66O6seUwpz4"
-            dest = "CAMELS.zip"
-            # TODO replace with requestlib?
-            system(f"wget --no-check-certificate '{url}' -O '{dest}'")
-            system("unzip 'CAMELS.zip' && rm CAMELS.zip")
+        print(f"Downloading CAMELS test data to {data_path}")
+        url = "https://drive.google.com/uc?export=download&id=1ZeX-M2fA-HKNg1nWwDDsI66O6seUwpz4"
+        dest = data_path / "CAMELS.zip"
+        try:
+            urllib.request.urlretrieve(url, dest)
+        except Exception as e:
+            raise TestDataDownloadError("failed to download CAMELS test data") from e
+
+        with zipfile.ZipFile(dest, "r") as fp:
+            fp.extractall(data_path)
+        os.remove(dest)
 
     else:
         print(f"CAMELS data already exists in {data_path}")
