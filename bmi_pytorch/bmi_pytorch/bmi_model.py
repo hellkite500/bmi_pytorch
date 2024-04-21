@@ -78,11 +78,11 @@ class Bmi_Model(Bmi_Minimal):
         """
         return len(self.input_names)
     
-    def get_input_var_names(self) -> tuple[str]:
+    def get_input_var_names(self) -> Tuple[str, ...]:
         """The names of each input variables
 
         Returns:
-            tuple[str]: iterable tuple of input variable names
+            tuple[str, ...]: iterable tuple of input variable names
         """
         return self.input_names
 
@@ -94,11 +94,11 @@ class Bmi_Model(Bmi_Minimal):
         """
         return len(self.output_names)
     
-    def get_output_var_names(self) -> tuple[str]:
+    def get_output_var_names(self) -> Tuple[str, ...]:
         """The names of each output variable
 
         Returns:
-            tuple[str]: iterable tuple of output variable names
+            tuple[str, ...]: iterable tuple of output variable names
         """
         return self.output_names
 
