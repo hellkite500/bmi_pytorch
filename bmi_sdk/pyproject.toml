@@ -17,10 +17,10 @@ dependencies = [
 ]
 requires-python = ">=3.8"
 
-[tool.setuptools]
-package-dir={"bmi_sdk"="bmi_sdk"}
+[project.optional-dependencies]
+test = ["pytest>=7.0.0"]
 
 [tool.ruff]
 exclude = [
-    "./test*",
+    "./tests/*",
 ]
