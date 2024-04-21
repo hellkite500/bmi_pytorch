@@ -31,7 +31,11 @@ jobs:
         uv pip install "./bmi_sdk[test]"
 
     - name: Echo package versions
-      run: uv pip freeze
+      run: |
+        source .venv/bin/activate
+        uv pip freeze
 
     - name: Run unit tests
-      run: pytest -s
+      run: |
+        source .venv/bin/activate
+        pytest -s
