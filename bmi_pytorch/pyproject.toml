@@ -5,11 +5,18 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "bmi_pytorch"
 version = "0.0.0"
+license = {file = "LICENSE"}
+authors = [
+  {name = "Nels Frazier"},
+  {name = "Tadd Bindas"},
+  {name = "Austin Raney", email = "aaraney@protonmail.com"},
+]
 dependencies = [
   "torch",
   "bmipy",
   "pydantic"
 ]
+requires-python = ">=3.8"
 
 [tool.setuptools]
 package-dir={"bmi_pytorch"="bmi_pytorch"}
