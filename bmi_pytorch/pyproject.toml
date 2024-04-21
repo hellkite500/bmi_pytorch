@@ -14,7 +14,8 @@ authors = [
 dependencies = [
   "torch",
   "bmipy",
-  "pydantic"
+  "pydantic",
+  "pandas",
 ]
 requires-python = ">=3.8"
 
