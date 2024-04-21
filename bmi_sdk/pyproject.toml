@@ -5,10 +5,17 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "bmi_sdk"
 version = "0.0.0"
+license = {file = "LICENSE"}
+authors = [
+  {name = "Nels Frazier"},
+  {name = "Tadd Bindas"},
+  {name = "Austin Raney", email = "aaraney@protonmail.com"},
+]
 dependencies = [
   "bmipy",
   "numpy"
 ]
+requires-python = ">=3.8"
 
 [tool.setuptools]
 package-dir={"bmi_sdk"="bmi_sdk"}
