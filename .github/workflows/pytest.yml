@@ -27,7 +27,6 @@ jobs:
         pip install uv
         uv venv
         source .venv/bin/activate
-        uv pip install -r requirements.txt
         uv pip install "bmi_pytorch[test]"
         uv pip install "bmi_sdk[test]"
 
