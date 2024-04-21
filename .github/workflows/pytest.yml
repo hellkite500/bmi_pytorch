@@ -27,8 +27,8 @@ jobs:
         pip install uv
         uv venv
         source .venv/bin/activate
-        uv pip install "bmi_pytorch[test]"
-        uv pip install "bmi_sdk[test]"
+        uv pip install "./bmi_pytorch[test]"
+        uv pip install "./bmi_sdk[test]"
 
     - name: Echo package versions
       run: uv pip freeze
