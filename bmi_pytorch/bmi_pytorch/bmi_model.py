@@ -6,15 +6,11 @@ from bmi_sdk.bmi_minimal import Bmi_Minimal
 from torch import Tensor
 
 from bmi_sdk.bmi_grid import Grid, GridType
+from bmi_sdk import UnknownBMIVariable
 from .config import Config
 from .model import Model
 
 from typing import Tuple, List
-
-
-class UnknownBMIVariable(RuntimeError):
-    pass
-
 
 class Bmi_Model(Bmi_Minimal):
     """BMI composition wrapper for Model
