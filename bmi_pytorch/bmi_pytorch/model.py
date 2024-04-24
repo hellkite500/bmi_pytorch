@@ -10,6 +10,7 @@ Torch model for a multi-layer Neural Network with weights and bias
 """
 
 from math import sqrt
+
 # Typing imports
 from typing import Callable, List, Optional
 
