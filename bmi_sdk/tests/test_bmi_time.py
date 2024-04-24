@@ -1,11 +1,28 @@
-from ..bmi_time import BmiTime
-from pydantic import ValidationError
 import pytest
+from pydantic import ValidationError
 
-@pytest.mark.parametrize('unit', ["s", "sec", "second", "seconds", 
-                       "min", "minute", "minutes"
-                       "h", "hr", "hour", "hours", 
-                       "d", "day", "days"])
+from ..bmi_time import BmiTime
+
+
+@pytest.mark.parametrize(
+    "unit",
+    [
+        "s",
+        "sec",
+        "second",
+        "seconds",
+        "min",
+        "minute",
+        "minutes",
+        "h",
+        "hr",
+        "hour",
+        "hours",
+        "d",
+        "day",
+        "days",
+    ],
+)
 def test_good_time_units(unit: str) -> None:
     """Test validation of time units
 
@@ -15,10 +32,10 @@ def test_good_time_units(unit: str) -> None:
     t = BmiTime(units=unit)
     assert t.units == unit
 
-@pytest.mark.parametrize('unit', ["secs", "summer", 
-                       "mins", "minut",
-                       "hrs", "huors", 
-                       "year", "years"])
+
+@pytest.mark.parametrize(
+    "unit", ["secs", "summer", "mins", "minut", "hrs", "huors", "year", "years"]
+)
 def test_bad_time_units(unit: str) -> None:
     """Test validation of time units
 
