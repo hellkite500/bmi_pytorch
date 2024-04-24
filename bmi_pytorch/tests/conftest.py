@@ -10,8 +10,9 @@ import torch
 from bmi_pytorch.bmi_model import Bmi_Model
 from bmi_pytorch.config import Config
 
-class TestDataDownloadError(Exception):
-    ...
+
+class TestDataDownloadError(Exception): ...
+
 
 def pytest_configure(config: pytest.Config) -> None:
     """Download CAMELS data if it doesn't already exist"""
@@ -34,6 +35,7 @@ def pytest_configure(config: pytest.Config) -> None:
 
     else:
         print(f"CAMELS data already exists in {data_path}")
+
 
 @pytest.fixture
 def input() -> torch.Tensor:

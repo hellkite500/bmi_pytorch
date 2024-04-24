@@ -11,8 +11,10 @@ from .model import Model
 
 from typing import Tuple, List
 
+
 class UnknownBMIVariable(RuntimeError):
     pass
+
 
 class Bmi_Model(Bmi_Minimal):
     """BMI composition wrapper for Model
@@ -54,8 +56,7 @@ class Bmi_Model(Bmi_Minimal):
         self.optimizer = torch.optim.SGD(self.model.parameters(), self.learning_rate)
 
     def update(self):
-        """Update the model for the internal timestep duration
-        """
+        """Update the model for the internal timestep duration"""
         self.output = self.model(self.input)
 
     def finalize(self):
@@ -77,7 +78,7 @@ class Bmi_Model(Bmi_Minimal):
             int: number of input variables
         """
         return len(self.input_names)
-    
+
     def get_input_var_names(self) -> Tuple[str, ...]:
         """The names of each input variables
 
@@ -93,7 +94,7 @@ class Bmi_Model(Bmi_Minimal):
             int: number of output variables
         """
         return len(self.output_names)
-    
+
     def get_output_var_names(self) -> Tuple[str, ...]:
         """The names of each output variable
 
@@ -111,12 +112,14 @@ class Bmi_Model(Bmi_Minimal):
         np_array = self._values[name].numpy()
         shape = np_array.shape
         try:
-            #see if raveling is possible without a copy
+            # see if raveling is possible without a copy
             np_array.shape = (-1,)
-            #reset original shape
+            # reset original shape
             np_array.shape = shape
         except ValueError as e:
-            raise RuntimeError("Cannot flatten array without copying -- "+str(e).split(": ")[-1])
+            raise RuntimeError(
+                "Cannot flatten array without copying -- " + str(e).split(": ")[-1]
+            )
         return np_array.ravel()
 
     # BMI Variable Information Functions
@@ -133,9 +136,9 @@ class Bmi_Model(Bmi_Minimal):
             int: grid identifier associated with @p name
         """
         if name in (self.input_names + self.output_names):
-            return 0 # should these be on a grid???
+            return 0  # should these be on a grid???
 
-        raise(UnknownBMIVariable(f"No known variable in BMI model: {name}"))
+        raise (UnknownBMIVariable(f"No known variable in BMI model: {name}"))
 
     def get_var_itemsize(self, name: str) -> int:
         """Size, in bytes, of a single element of the variable name
