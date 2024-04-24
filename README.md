@@ -31,7 +31,22 @@ pip install ./bmi_pytorch
 pip install ./bmi_sdk/
 ```
 
-### Running Tests
+### Local Development
+
+#### `pre-commit` hooks
+
+We use `git` `pre-commit` hooks to run tasks like code formatting and linting.
+After cloning the repo and setting up a python virtual environment, install `pre-commit` with:
+
+```python
+pip install pre-commit
+```
+
+Next, run `pre-commit install` (you must run from a directory in your repo clone).
+That's all!
+Now, whenever you make a commit, `pre-commit` will run hooks to ensure that your code is properly formatted and linted!
+
+#### Running Tests
 
 We use `pytest` to write and run our tests. Do the following to build and run tests:
 
