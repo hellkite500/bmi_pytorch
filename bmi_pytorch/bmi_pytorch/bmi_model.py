@@ -1,7 +1,5 @@
-import numpy as np
 from numpy import ndarray
 import torch
-from bmipy import Bmi
 from bmi_sdk.bmi_minimal import Bmi_Minimal
 from torch import Tensor
 
