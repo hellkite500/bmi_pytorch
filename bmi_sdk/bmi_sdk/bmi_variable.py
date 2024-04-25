@@ -35,10 +35,10 @@ Float = RootModel[
 ]
 Double = RootModel[Literal["float", "float64", "np.float64", "numpy.float64"]]
 
-VarType = Union[Integer, Long, Float, Double]
+DataType = Union[Integer, Long, Float, Double]
 
 
-class VarLocation(str, Enum):
+class GridLocation(str, Enum):
     """Enumeration of variable grid location strings supported by BMI.
 
     See https://bmi.readthedocs.io/en/stable/#get-var-location
@@ -58,11 +58,11 @@ class BmiVariable(BaseModel):
 
     name: str = Field(min_length=1)
     grid: Annotated[Grid, "Bmi Grid object"] = Field(default=Grid(0, 0, "scalar"))
-    type: VarType = Field(default="float")
+    type: DataType = Field(default="float")
     units: str = Field(default="-")
     # By default, value is a numpy scalar of float type
     value: Optional[Any] = Field(default=np.zeros(tuple()), dtype=np.float32)
-    location: VarLocation = Field(default="node")
+    location: GridLocation = Field(default="node")
 
     @computed_field
     @property
