@@ -1,14 +1,15 @@
-from numpy import ndarray
+from typing import List, Tuple
+
 import torch
+from bmi_sdk import UnknownBMIVariable
+from bmi_sdk.bmi_grid import Grid, GridType
 from bmi_sdk.bmi_minimal import Bmi_Minimal
+from numpy import ndarray
 from torch import Tensor
 
-from bmi_sdk.bmi_grid import Grid, GridType
-from bmi_sdk import UnknownBMIVariable
 from .config import Config
 from .model import Model
 
-from typing import Tuple, List
 
 class Bmi_Model(Bmi_Minimal):
     """BMI composition wrapper for Model
@@ -99,7 +100,6 @@ class Bmi_Model(Bmi_Minimal):
 
     # BMI Variable Query
     def get_value_ptr(self, name: str) -> ndarray:
-
         # np_array will share memory with the Tensor's
         # numeric array, but won't have any other attributes
         # of the Tensor.
