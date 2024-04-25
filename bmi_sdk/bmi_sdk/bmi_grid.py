@@ -12,7 +12,6 @@ from typing import TYPE_CHECKING
 import numpy as np
 
 if TYPE_CHECKING:
-
     from numpy.typing import NDArray
 
 _error_on_grid_type: bool = False
