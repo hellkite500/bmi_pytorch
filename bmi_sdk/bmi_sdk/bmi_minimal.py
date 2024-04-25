@@ -1,7 +1,7 @@
-from numpy import ndarray
-from bmipy import Bmi
-
 from typing import Tuple
+
+from bmipy import Bmi
+from numpy import ndarray
 
 
 class Bmi_Minimal(Bmi):
@@ -177,15 +177,6 @@ class Bmi_Minimal(Bmi):
         Returns:
             str: units
         """
-        raise NotImplementedError()
-
-    def get_var_grid(self, name: str) -> int:
-        raise NotImplementedError()
-
-    def get_var_location(self, name: str) -> str:
-        raise NotImplementedError()
-
-    def get_var_units(self, name: str) -> str:
         raise NotImplementedError()
 
     def get_current_time(self) -> float:
