@@ -21,24 +21,19 @@ from typing_extensions import Annotated, Self
 
 from .bmi_grid import Grid
 
-Integer = RootModel[Annotated[str, Literal["int", "int16", "int32", "integer"]]]
-Long = RootModel[Annotated[str, Literal["int", "int64", "longlong"]]]
+Integer = RootModel[Literal["int", "int16", "int32", "integer"]]
+Long = RootModel[Literal["int", "int64", "longlong"]]
 Float = RootModel[
-    Annotated[
-        str,
-        Literal[
-            "float",
-            "float32",
-            "np.float32",
-            "numpy.float32",
-            "np.single",
-            "numpy.single",
-        ],
+    Literal[
+        "float",
+        "float32",
+        "np.float32",
+        "numpy.float32",
+        "np.single",
+        "numpy.single",
     ]
 ]
-Double = RootModel[
-    Annotated[str, Literal["float", "float64", "np.float64", "numpy.float64"]]
-]
+Double = RootModel[Literal["float", "float64", "np.float64", "numpy.float64"]]
 
 VarType = Union[Integer, Long, Float, Double]
 
