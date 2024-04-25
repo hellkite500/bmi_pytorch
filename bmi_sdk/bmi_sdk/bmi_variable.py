@@ -57,11 +57,15 @@ class BmiVariable(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     name: str = Field(min_length=1)
-    grid: Annotated[Grid, "Bmi Grid object"] = Field(default=Grid(0, 0, "scalar"))
+    grid: Annotated[Grid, "Bmi Grid object"] = Field(
+        default_factory=lambda: Grid(0, 0, "scalar")
+    )
     type: DataType = Field(default="float")
     units: str = Field(default="-")
     # By default, value is a numpy scalar of float type
-    value: Optional[Any] = Field(default=np.zeros(tuple()), dtype=np.float32)
+    value: Optional[Any] = Field(
+        default_factory=lambda: np.zeros(tuple()), dtype=np.float32
+    )
     location: GridLocation = Field(default="node")
 
     @computed_field
