@@ -13,7 +13,8 @@ authors = [
 ]
 dependencies = [
   "bmipy",
-  "numpy"
+  "numpy",
+  "pydantic",
 ]
 requires-python = ">=3.8"
 
